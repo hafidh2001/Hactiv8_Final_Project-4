@@ -1,0 +1,15 @@
+// {
+//     "compilerOptions": {
+//         "module": "commonjs",
+//         "target": "es6",
+//         "baseUrl": "./",
+//         "paths": {
+//             "config": [
+//                 "./config"
+//             ]
+//         }
+//     },
+//     "include": [
+//         "./final_project_1"
+//     ]
+// }

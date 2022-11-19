@@ -32,8 +32,7 @@ $ npm install (to install dependencies on the project stored in package.json)
 
 ## DOCUMENTATION
 
-[See more documentation here](./note.txt)\
-[See documentation for deploy with Heroku](./note-deploy.txt)
+[See more documentation here](./note.txt)
 
 ## License
 

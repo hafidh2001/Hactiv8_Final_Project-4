@@ -7,8 +7,7 @@
   "scripts": {
     "migrate-create": "node migrations/migrateCreateTable.js",
     "migrate-drop": "node migrations/migrateDropTable.js",
-    "dev": "yes | npx kill-port 8000 && nodemon index.js",
-    "test": "yes | npx kill-port 8000 && NODE_ENV=test nodemon index.js"
+    "dev": "yes | npx kill-port 8000 && nodemon index.js"
   },
   "repository": {
     "type": "git",

@@ -4,7 +4,7 @@ export const createComment = async (req, res) => {
   const user = req.user;
   const { photoId, comment } = req.body;
   try {
-    if (!photoId || !comment) {
+    if (photoId == null || comment == null) {
       res
         .status(401)
         .send({ status: "error", message: "photoId & comment is required" });

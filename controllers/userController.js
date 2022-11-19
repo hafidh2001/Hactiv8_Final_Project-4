@@ -46,13 +46,13 @@ export const registerUser = async (req, res) => {
 
   try {
     if (
-      !full_name ||
-      !email ||
-      !username ||
-      !password ||
-      !profile_image_url ||
-      !age ||
-      !phone_number
+      full_name == null ||
+      email == null ||
+      username == null ||
+      password == null ||
+      profile_image_url == null ||
+      age == null ||
+      phone_number == null
     ) {
       res.status(400).send({
         status: "error",

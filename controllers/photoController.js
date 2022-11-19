@@ -5,7 +5,7 @@ export const createPhoto = async (req, res) => {
   const { title, caption, poster_image_url } = req.body;
 
   try {
-    if (!title || !caption || !poster_image_url) {
+    if (title == null || caption == null || poster_image_url == null) {
       res.status(401).send({
         status: "error",
         message: "title, caption & poster_image_url is required",

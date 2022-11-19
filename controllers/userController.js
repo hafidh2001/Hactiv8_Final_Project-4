@@ -45,6 +45,23 @@ export const registerUser = async (req, res) => {
   } = req.body;
 
   try {
+    if (
+      !full_name ||
+      !email ||
+      !username ||
+      !password ||
+      !profile_image_url ||
+      !age ||
+      !phone_number
+    ) {
+      res.status(400).send({
+        status: "error",
+        message:
+          "full_name, email, username, password, profile_image_url, age & phone_number are required",
+      });
+      return;
+    }
+
     const hash_password = await hash(password);
 
     await Users.create({

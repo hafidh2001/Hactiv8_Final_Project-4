@@ -5,6 +5,14 @@ export const createPhoto = async (req, res) => {
   const { title, caption, poster_image_url } = req.body;
 
   try {
+    if (!title || !caption || !poster_image_url) {
+      res.status(401).send({
+        status: "error",
+        message: "title, caption & poster_image_url is required",
+      });
+      return;
+    }
+
     await Photos.create({
       title: title,
       caption: caption,

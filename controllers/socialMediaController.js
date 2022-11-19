@@ -5,6 +5,14 @@ export const createSocialMedia = async (req, res) => {
   const { name, social_media_url } = req.body;
 
   try {
+    if (!name || !social_media_url) {
+      res.status(401).send({
+        status: "error",
+        message: "name & social_media_url is required",
+      });
+      return;
+    }
+
     await SocialMedia.create({
       name: name,
       social_media_url: social_media_url,

@@ -4,10 +4,13 @@ export const createComment = async (req, res) => {
   const user = req.user;
   const { photoId, comment } = req.body;
   try {
-    if (!photoId) {
-      res.status(401).send({ status: "error", message: "photoId is required" });
+    if (!photoId || !comment) {
+      res
+        .status(401)
+        .send({ status: "error", message: "photoId & comment is required" });
       return;
     }
+
     await Photos.findOne({
       where: { id: Number(photoId) },
     }).then((data) => {

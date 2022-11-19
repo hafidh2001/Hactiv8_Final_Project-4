@@ -9,7 +9,7 @@ const router = Router();
 
 // make route
 router.get("/", (req, res) => {
-  res.send("Hactive8 - Final Project 2");
+  res.send("Hactive8 - Final Project 4");
 });
 
 // create same-endpoint

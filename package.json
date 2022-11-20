@@ -5,9 +5,14 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "migrate-create": "node migrations/migrateCreateTable.js",
-    "migrate-drop": "node migrations/migrateDropTable.js",
-    "dev": "yes | npx kill-port 8000 && nodemon index.js"
+    "migrate-db-dev": "node migrations/migrateCreateTable.js",
+    "drop-db-dev": "node migrations/migrateDropTable.js",
+    "dev": "yes | npx kill-port 8000 && nodemon index.js",
+    "prod": "export NODE_TLS_REJECT_UNAUTHORIZED='0' && node index.js",
+    "prod-migrate-create": "export NODE_TLS_REJECT_UNAUTHORIZED='0' && node migrations/migrateCreateTable.js",
+    "migrate-db-test": "SET NODE_ENV=test&& node migrations/migrateCreateTable.js",
+    "drop-db-test": "SET NODE_ENV=test&& node migrations/migrateDropTable.js",
+    "test": "SET NODE_ENV=test&& npx jest --runInBand --coverage"
   },
   "repository": {
     "type": "git",

@@ -1,5 +1,4 @@
 // import library
-import { port, node_env } from "./config.js";
 import express from "express";
 import cors from "cors";
 import { checkConnection } from "./helpers/connectionDatabase.js";
@@ -21,8 +20,4 @@ app.use(express.json());
 // calling routes
 app.use(routes);
 
-// declare route
-app.listen(port || 8000, () => {
-  console.log(`🍃 node_env = ${node_env}`);
-  console.log(`🍃 Server running at http://localhost:${port || 8000}/`);
-});
+export default app;

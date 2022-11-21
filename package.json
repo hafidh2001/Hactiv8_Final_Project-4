@@ -3,16 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "migrate-db-dev": "node migrations/migrateCreateTable.js",
     "drop-db-dev": "node migrations/migrateDropTable.js",
-    "dev": "yes | npx kill-port 8000 && nodemon index.js",
-    "prod": "export NODE_TLS_REJECT_UNAUTHORIZED='0' && node index.js",
+    "dev": "yes | npx kill-port 8000 && nodemon server.js",
+    "prod": "export NODE_TLS_REJECT_UNAUTHORIZED='0' && node server.js",
     "prod-migrate-create": "export NODE_TLS_REJECT_UNAUTHORIZED='0' && node migrations/migrateCreateTable.js",
     "migrate-db-test": "SET NODE_ENV=test&& node migrations/migrateCreateTable.js",
     "drop-db-test": "SET NODE_ENV=test&& node migrations/migrateDropTable.js",
-    "test": "SET NODE_ENV=test&& npx jest --runInBand --coverage"
+    "test": "SET NODE_ENV=test&& SET NODE_OPTIONS=--experimental-vm-modules&& npx jest --detectOpenHandles --forceExit"
   },
   "repository": {
     "type": "git",

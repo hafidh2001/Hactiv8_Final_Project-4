@@ -21,20 +21,16 @@ export const authentication = async (req, res, next) => {
     delete decode.iat;
     delete decode.exp;
     // check decode token with user data
-    await Users.findOne({ where: { id: decode.id, email: decode.email } }).then(
-      (data) => {
-        // check if user is exist
-        if (!data) {
-          res
-            .status(401)
-            .json({ status: "error", message: "authorization failed" });
-          return;
-        }
-        delete data.dataValues.password;
-        // so that when data updates occur (except email) users do not need to re-login because the data will always match
-        req.user = { ...data.dataValues };
-      }
-    );
+    const user = await Users.findOne({ where: { id: decode.id, email: decode.email } })
+    if (!user) {
+      res
+        .status(401)
+        .json({ status: "error", message: "authorization failed" });
+      return;
+    }
+    delete user.dataValues.password;
+    // so that when data updates occur (except email) users do not need to re-login because the data will always match
+    req.user = { ...user.dataValues };
     next();
   } catch (error) {
     next(error);

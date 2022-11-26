@@ -5,8 +5,6 @@ import jwt from "jsonwebtoken";
 import { jwt_secret } from "../../config.js";
 import { hashSync } from "../../helpers/bcrypt.js";
 
-
-
 const user = {
     full_name: "programmer",
     email: "programmer@gmail.com",
@@ -36,7 +34,7 @@ afterAll(async () => {
 });
 
 describe("POST /users/login", () => {
-    // SUCCESS (7 EXPECT)
+    // SUCCESS
     test("HTTP status code 200 (login success)", async () => {
         const res = await request(app).post("/users/login").send(userData);
         expect(res.status).toEqual(200);
@@ -63,7 +61,7 @@ describe("POST /users/login", () => {
         });
     });
 
-    // ERROR (6 EXPECT)
+    // ERROR
     test("HTTP status code 400 (all field required)", async () => {
         const res = await request(app).post("/users/login").send({});
         expect(res.status).toEqual(400);

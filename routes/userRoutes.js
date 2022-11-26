@@ -10,7 +10,7 @@ import { Router } from "express";
 
 const router = Router();
 
-router.get("/", authentication, showUser);
+router.get("/", showUser);
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.put("/:userId", authentication, updateUser);

@@ -23,7 +23,7 @@ afterAll(async () => {
 });
 
 describe("POST /users/register", () => {
-  // SUCCESS (17 EXPECT)
+  // SUCCESS
   test("HTTP status code 201 (register success)", async () => {
     const res = await request(app).post("/users/register").send(userData);
     expect(res.status).toEqual(201);
@@ -47,7 +47,7 @@ describe("POST /users/register", () => {
     expect(typeof userData.phone_number).toEqual("string");
   });
 
-  // ERROR (11 EXPECT)
+  // ERROR
   test("HTTP status code 400 (all field required)", async () => {
     const res = await request(app).post("/users/register").send({});
     expect(res.status).toEqual(400);

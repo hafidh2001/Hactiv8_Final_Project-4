@@ -1,5 +1,6 @@
 import request from "supertest";
 import app from "../../app.js";
+import db from "../../db/database.js";
 
 const userData = {
   full_name: "programmer",
@@ -10,6 +11,16 @@ const userData = {
   age: 21,
   phone_number: "111111111111",
 };
+
+beforeAll(async () => {
+  // delete all row & start id from 0
+  await db.query(`DELETE FROM users;`);
+  await db.query(`ALTER SEQUENCE users_id_seq RESTART WITH 1;`);
+});
+
+afterAll(async () => {
+  await db.close();
+});
 
 describe("POST /users/register", () => {
   // SUCCESS (17 EXPECT)

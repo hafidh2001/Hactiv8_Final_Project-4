@@ -2,7 +2,6 @@ import jwt from "jsonwebtoken";
 import { jwt_secret } from "../config.js";
 import { compare } from "../helpers/bcrypt.js";
 import { Users, Photos } from "../models/index.js";
-import { Op } from "sequelize";
 
 export const showUser = async (req, res) => {
   try {

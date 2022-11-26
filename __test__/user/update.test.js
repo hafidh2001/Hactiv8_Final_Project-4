@@ -5,9 +5,6 @@ import jwt from "jsonwebtoken";
 import { jwt_secret } from "../../config.js";
 import { hashSync } from "../../helpers/bcrypt.js";
 
-const user1Token = jwt.sign({ id: 1, email: "programmer@gmail.com" }, jwt_secret, {
-    expiresIn: "24h",
-})
 const user1 = {
   full_name: "programmer",
     email: "programmer@gmail.com",
@@ -16,10 +13,10 @@ const user1 = {
     profile_image_url: "https://programmer-photo.jpg",
     age: 21,
     phone_number: "111111111111"
-  };
+};
 
-const user2Token = jwt.sign({ id: 2, email: "ui_ux@gmail.com" }, jwt_secret, {
-    expiresIn: "24h",
+const user1Token = jwt.sign({ id: 1, email: user1.email }, jwt_secret, {
+  expiresIn: "24h",
 })
 
 const user2 = {
@@ -31,6 +28,10 @@ const user2 = {
     age: 25,
     phone_number: "222222222222"
 };
+
+const user2Token = jwt.sign({ id: 2, email: user2.email }, jwt_secret, {
+  expiresIn: "24h",
+})
 
 const userNotExistsToken = jwt.sign({ id: 100, email: "designer@gmail.com" }, jwt_secret, {
     expiresIn: "24h",
@@ -85,7 +86,7 @@ describe("PUT /users/:userId", () => {
 
   // ERROR
   test("HTTP status code 401 (credentials not found)", async () => {
-    const res = await request(app).put("/users/1");
+    const res = await request(app).put("/users/1").send(updateUserData);
     expect(res.status).toBe(401);
     expect(res.body).toEqual({
       status: "error",
@@ -94,12 +95,12 @@ describe("PUT /users/:userId", () => {
   });
 
   test("HTTP status code 401 (authorization failed)", async () => {
-    const res = await request(app).put("/users/1").set('Authorization', `Bearer ${userNotExistsToken}`).expect(401);
+    const res = await request(app).put("/users/1").set('Authorization', `Bearer ${userNotExistsToken}`).send(updateUserData).expect(401);
     expect(res.body).toEqual({ status: "error", message: "authorization failed" });
   });
 
   test("HTTP status code 401 (authorization does not match id)", async () => {
-    const res = await request(app).put("/users/2").set('Authorization', `Bearer ${user1Token}`).expect(401);
+    const res = await request(app).put("/users/100").set('Authorization', `Bearer ${user1Token}`).send(updateUserData).expect(401);
     expect(res.body).toEqual({ status: "error", message: "authorization failed" });
   });
 

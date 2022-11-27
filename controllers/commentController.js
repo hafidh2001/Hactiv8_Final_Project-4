@@ -100,7 +100,7 @@ export const updateComment = async (req, res) => {
           if (!data) {
             res
               .status(400)
-              .send({ status: "error", message: "social media doesn't exist" });
+              .send({ status: "error", message: "comment doesn't exist" });
             return;
           }
           res.status(200).send({

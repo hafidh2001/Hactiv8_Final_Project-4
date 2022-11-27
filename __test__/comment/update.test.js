@@ -34,6 +34,11 @@ const commentData = {
   comment: "wahh bagus sekali"
 }
 
+const updatedCommentData = {
+  photoId: 1,
+  comment: "greats, unbelievable"
+}
+
 beforeAll(async () => {
 // delete all row & start id from 0
 await db.query(`DELETE FROM users;`);
@@ -53,29 +58,46 @@ afterAll(async () => {
   await db.close();
 });
 
-describe("GET /comments/", () => {
+describe("PUT /comments/:commentId", () => {
     // SUCCESS
-    test("HTTP status code 200 (show comment success)", async () => {
-        const res = await request(app).get("/comments/").set('Authorization', `Bearer ${userToken}`);
-        expect(res.status).toEqual(200);
-        expect(res.headers["content-type"]).toEqual(
-            expect.stringContaining("json")
-          );
-        expect(typeof res.body).toEqual("object");
-      });
-
+    test("HTTP status code 200 (update success)", async () => {
+      const res = await request(app).put("/comments/1").set('Authorization', `Bearer ${userToken}`).send(updatedCommentData);
+      expect(res.status).toBe(200)
+      expect(res.headers["content-type"]).toEqual(
+        expect.stringContaining("json")
+      );
+      expect(typeof res.body).toEqual("object");
+        expect(updatedCommentData).toHaveProperty("photoId");
+        expect(updatedCommentData).toHaveProperty("comment");
+        expect(typeof updatedCommentData.photoId).toEqual("number");
+        expect(typeof updatedCommentData.comment).toEqual("string");
+    });
+  
     // ERROR
     test("HTTP status code 401 (credentials not found)", async () => {
-        const res = await request(app).get("/comments/");
-        expect(res.status).toBe(401);
-        expect(res.body).toEqual({
-            status: "error",
-          message: "failed to access, credentials not found",
-        });
+      const res = await request(app).put("/comments/1").send(updatedCommentData);
+      expect(res.status).toBe(401);
+      expect(res.body).toEqual({
+        status: "error",
+        message: "failed to access, credentials not found",
+      });
     });
-    
+  
     test("HTTP status code 401 (authorization failed)", async () => {
-        const res = await request(app).get("/comments/").set('Authorization', `Bearer ${userNotExistsToken}`).expect(401);
-        expect(res.body).toEqual({ status: "error", message: "authorization failed" });
+      const res = await request(app).put("/comments/1").set('Authorization', `Bearer ${userNotExistsToken}`).send(updatedCommentData).expect(401);
+      expect(res.body).toEqual({ status: "error", message: "authorization failed" });
     });
-});
+  
+    test("HTTP status code 400 (comment doesn't exist)", async () => {
+      const res = await request(app).put("/comments/100").set('Authorization', `Bearer ${userToken}`).send(updatedCommentData);
+      expect(res.status).toBe(400);
+      expect(res.body).toEqual({ status: "error", message: "comment doesn't exist" });
+    });
+
+    test("HTTP status code 400 (comment empty)", async () => {
+        const comment = {...updatedCommentData}
+        comment.comment = ''
+        const res = await request(app).put("/comments/1").set('Authorization', `Bearer ${userToken}`).send(comment).expect(400);
+        expect(res.body.message).toEqual("Validation notEmpty on comment failed");
+    });
+  });

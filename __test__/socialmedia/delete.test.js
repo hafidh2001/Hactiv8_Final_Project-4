@@ -23,9 +23,14 @@ const userNotExistsToken = jwt.sign({ id: 100, email: "designer@gmail.com" }, jw
     expiresIn: "24h",
 })
 
-const socialMediaData = {
+const socialMedia1Data = {
     name: "programmer instagram",
     social_media_url: "https://hactiv.org/programmer-instagram"
+  }
+
+const socialMedia2Data = {
+    name: "programmer linkedin",
+    social_media_url: "https://hactiv.org/programmer-linkedin"
   }
 
 beforeAll(async () => {
@@ -37,7 +42,8 @@ beforeAll(async () => {
     
     // create
     await db.query(`INSERT INTO users (full_name, email, username, password, profile_image_url, age, phone_number, createdat, updatedat) VALUES ('${user.full_name}', '${user.email}', '${user.username}', '${hashSync(user.password)}', '${user.profile_image_url}', ${user.age}, '${user.phone_number}', '${new Date().toISOString()}', '${new Date().toISOString()}');`)
-    await db.query(`INSERT INTO social_medias (name, social_media_url, userid, createdat, updatedat) VALUES ('${socialMediaData.name}', '${socialMediaData.social_media_url}', 1, '${new Date().toISOString()}', '${new Date().toISOString()}');`)
+    await db.query(`INSERT INTO social_medias (name, social_media_url, userid, createdat, updatedat) VALUES ('${socialMedia1Data.name}', '${socialMedia1Data.social_media_url}', 1, '${new Date().toISOString()}', '${new Date().toISOString()}');`)
+    await db.query(`INSERT INTO social_medias (name, social_media_url, userid, createdat, updatedat) VALUES ('${socialMedia2Data.name}', '${socialMedia2Data.social_media_url}', 1, '${new Date().toISOString()}', '${new Date().toISOString()}');`)
   });
 
 afterAll(async () => {
@@ -47,7 +53,7 @@ afterAll(async () => {
 describe("DELETE /socialmedias/:socialMediaId", () => {
     // SUCCESS
     test("HTTP status code 200 (delete success)", async () => {
-        const res = await request(app).delete("/socialmedias/1").set('Authorization', `Bearer ${userToken}`);
+        const res = await request(app).delete("/socialmedias/2").set('Authorization', `Bearer ${userToken}`);
         expect(res.status).toEqual(200);
         expect(res.headers["content-type"]).toEqual(
           expect.stringContaining("json")

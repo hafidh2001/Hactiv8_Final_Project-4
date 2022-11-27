@@ -89,7 +89,7 @@ describe("PUT /photos/:photoId", () => {
       expect(res.body).toEqual({ status: "error", message: "photo doesn't exist" });
     });
   
-    test("HTTP status code 400 (user don't make changes to anything)", async () => {
+    test("HTTP status code 200 (user don't make changes to anything)", async () => {
         const res = await request(app).put("/photos/1").set('Authorization', `Bearer ${userToken}`).send({});
         expect(res.status).toBe(200);
         expect(res.body).toEqual({

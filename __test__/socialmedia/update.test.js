@@ -42,6 +42,11 @@ const socialMediaData = {
   social_media_url: "https://hactiv.org/programmer-instagram"
 }
 
+const updateSocialMediaData = {
+  name: "programmer linkedin",
+  social_media_url: "https://hactiv.org/programmer-linkedin"
+}
+
 beforeAll(async () => {
     // delete all row & start id from 0
     await db.query(`DELETE FROM users;`);
@@ -62,21 +67,21 @@ afterAll(async () => {
 describe("PUT /socialmedias/:socialMediaId", () => {
     // SUCCESS
     test("HTTP status code 200 (update success)", async () => {
-      const res = await request(app).put("/socialmedias/1").set('Authorization', `Bearer ${user1Token}`).send(socialMediaData);
+      const res = await request(app).put("/socialmedias/1").set('Authorization', `Bearer ${user1Token}`).send(updateSocialMediaData);
       expect(res.status).toBe(200)
       expect(res.headers["content-type"]).toEqual(
         expect.stringContaining("json")
       );
       expect(typeof res.body).toEqual("object");
-        expect(socialMediaData).toHaveProperty("name");
-        expect(socialMediaData).toHaveProperty("social_media_url");
-        expect(typeof socialMediaData.name).toEqual("string");
-        expect(typeof socialMediaData.social_media_url).toEqual("string");
+        expect(updateSocialMediaData).toHaveProperty("name");
+        expect(updateSocialMediaData).toHaveProperty("social_media_url");
+        expect(typeof updateSocialMediaData.name).toEqual("string");
+        expect(typeof updateSocialMediaData.social_media_url).toEqual("string");
     });
   
     // ERROR
     test("HTTP status code 401 (credentials not found)", async () => {
-      const res = await request(app).put("/socialmedias/1").send(socialMediaData);
+      const res = await request(app).put("/socialmedias/1").send(updateSocialMediaData);
       expect(res.status).toBe(401);
       expect(res.body).toEqual({
         status: "error",
@@ -85,17 +90,17 @@ describe("PUT /socialmedias/:socialMediaId", () => {
     });
   
     test("HTTP status code 401 (authorization failed)", async () => {
-      const res = await request(app).put("/socialmedias/1").set('Authorization', `Bearer ${userNotExistsToken}`).send(socialMediaData).expect(401);
+      const res = await request(app).put("/socialmedias/1").set('Authorization', `Bearer ${userNotExistsToken}`).send(updateSocialMediaData).expect(401);
       expect(res.body).toEqual({ status: "error", message: "authorization failed" });
     });
   
-    test("HTTP status code 401 (social media doesn't exist)", async () => {
-      const res = await request(app).put("/socialmedias/100").set('Authorization', `Bearer ${user1Token}`).send(socialMediaData);
+    test("HTTP status code 400 (social media doesn't exist)", async () => {
+      const res = await request(app).put("/socialmedias/100").set('Authorization', `Bearer ${user1Token}`).send(updateSocialMediaData);
       expect(res.status).toBe(400);
       expect(res.body).toEqual({ status: "error", message: "social media doesn't exist" });
     });
   
-    test("HTTP status code 400 (user don't make changes to anything)", async () => {
+    test("HTTP status code 200 (user don't make changes to anything)", async () => {
         const res = await request(app).put("/socialmedias/1").set('Authorization', `Bearer ${user1Token}`).send({});
         expect(res.status).toBe(200);
         expect(res.body).toEqual({
@@ -104,14 +109,14 @@ describe("PUT /socialmedias/:socialMediaId", () => {
       });
 
     test("HTTP status code 400 (name empty)", async () => {
-        const social_media = {...socialMediaData}
+        const social_media = {...updateSocialMediaData}
         social_media.name = ''
         const res = await request(app).put("/socialmedias/1").set('Authorization', `Bearer ${user1Token}`).send(social_media).expect(400);
         expect(res.body.message).toEqual("Validation notEmpty on name failed");
     });
     
     test("HTTP status code 400 (format social_media_url)", async () => {
-        const social_media = {...socialMediaData}
+        const social_media = {...updateSocialMediaData}
         social_media.social_media_url = ''
         const res = await request(app).put("/socialmedias/1").set('Authorization', `Bearer ${user1Token}`).send(social_media).expect(400);
         expect(res.body.message).toEqual("Validation isUrl on social_media_url failed");

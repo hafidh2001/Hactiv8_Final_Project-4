@@ -23,10 +23,16 @@ const userNotExistsToken = jwt.sign({ id: 100, email: "designer@gmail.com" }, jw
     expiresIn: "24h",
 })
 
-const photoData = {
+const photo1Data = {
     title: "Buku 1",
     caption: "Buku 1 - cerita pertama seorang anak",
     poster_image_url: "https://anak-pertama.jpg"
+}
+
+const photo2Data = {
+    title: "Buku 2",
+    caption: "Buku 2 - cerita kedua seorang anak",
+    poster_image_url: "https://anak-kedua.jpg"
 }
 
 beforeAll(async () => {
@@ -38,7 +44,8 @@ beforeAll(async () => {
     
     // create
     await db.query(`INSERT INTO users (full_name, email, username, password, profile_image_url, age, phone_number, createdat, updatedat) VALUES ('${user.full_name}', '${user.email}', '${user.username}', '${hashSync(user.password)}', '${user.profile_image_url}', ${user.age}, '${user.phone_number}', '${new Date().toISOString()}', '${new Date().toISOString()}');`)
-    await db.query(`INSERT INTO photos (title, caption, poster_image_url, userid, createdat, updatedat) VALUES ('${photoData.title}', '${photoData.caption}', '${photoData.poster_image_url}', 1, '${new Date().toISOString()}', '${new Date().toISOString()}');`)
+    await db.query(`INSERT INTO photos (title, caption, poster_image_url, userid, createdat, updatedat) VALUES ('${photo1Data.title}', '${photo1Data.caption}', '${photo1Data.poster_image_url}', 1, '${new Date().toISOString()}', '${new Date().toISOString()}');`)
+    await db.query(`INSERT INTO photos (title, caption, poster_image_url, userid, createdat, updatedat) VALUES ('${photo2Data.title}', '${photo2Data.caption}', '${photo2Data.poster_image_url}', 1, '${new Date().toISOString()}', '${new Date().toISOString()}');`)
   });
 
 afterAll(async () => {
@@ -48,7 +55,7 @@ afterAll(async () => {
 describe("DELETE /photos/:photoId", () => {
     // SUCCESS
     test("HTTP status code 200 (delete success)", async () => {
-        const res = await request(app).delete("/photos/1").set('Authorization', `Bearer ${userToken}`);
+        const res = await request(app).delete("/photos/2").set('Authorization', `Bearer ${userToken}`);
         expect(res.status).toEqual(200);
         expect(res.headers["content-type"]).toEqual(
           expect.stringContaining("json")

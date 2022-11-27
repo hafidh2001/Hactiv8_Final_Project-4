@@ -7,31 +7,31 @@ import { hashSync } from "../../helpers/bcrypt.js";
 
 const user1 = {
     full_name: "programmer",
-      email: "programmer@gmail.com",
-      username: "programmer",
-      password: "12345",
-      profile_image_url: "https://programmer-photo.jpg",
-      age: 21,
-      phone_number: "111111111111"
-  };
+    email: "programmer@gmail.com",
+    username: "programmer",
+    password: "12345",
+    profile_image_url: "https://programmer-photo.jpg",
+    age: 21,
+    phone_number: "111111111111"
+};
   
-  const user1Token = jwt.sign({ id: 1, email: user1.email }, jwt_secret, {
+const user1Token = jwt.sign({ id: 1, email: user1.email }, jwt_secret, {
     expiresIn: "24h",
-  })
+})
   
-  const user2 = {
-      full_name: "ui_ux",
-      email: "ui_ux@gmail.com",
-      username: "ui_ux",
-      password: "12345",
-      profile_image_url: "https://ui_ux-photo.jpg",
-      age: 25,
-      phone_number: "222222222222"
-  };
+const user2 = {
+    full_name: "ui_ux",
+    email: "ui_ux@gmail.com",
+    username: "ui_ux",
+    password: "12345",
+    profile_image_url: "https://ui_ux-photo.jpg",
+    age: 25,
+    phone_number: "222222222222"
+};
   
-  const user2Token = jwt.sign({ id: 2, email: user2.email }, jwt_secret, {
+const user2Token = jwt.sign({ id: 2, email: user2.email }, jwt_secret, {
     expiresIn: "24h",
-  })
+})
 
 const userNotExistsToken = jwt.sign({ id: 100, email: "designer@gmail.com" }, jwt_secret, {
     expiresIn: "24h",
@@ -45,10 +45,10 @@ beforeAll(async () => {
     // create
     await db.query(`INSERT INTO users (full_name, email, username, password, profile_image_url, age, phone_number, createdat, updatedat) VALUES ('${user1.full_name}', '${user1.email}', '${user1.username}', '${hashSync(user1.password)}', '${user1.profile_image_url}', ${user1.age}, '${user1.phone_number}', '${new Date().toISOString()}', '${new Date().toISOString()}');`)
     await db.query(`INSERT INTO users (full_name, email, username, password, profile_image_url, age, phone_number, createdat, updatedat) VALUES ('${user2.full_name}', '${user2.email}', '${user2.username}', '${hashSync(user2.password)}', '${user2.profile_image_url}', ${user2.age}, '${user2.phone_number}', '${new Date().toISOString()}', '${new Date().toISOString()}');`)
-  });
+});
   
 afterAll(async () => {
-  await db.close();
+    await db.close();
 });
 
 describe("DELETE /users/:userId", () => {

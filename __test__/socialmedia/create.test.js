@@ -10,7 +10,7 @@ const user = {
     email: "programmer@gmail.com",
     username: "programmer",
     password: "12345",
-    profile_image_url: "https://photo.jpg",
+    profile_image_url: "https://social_media.jpg",
     age: 21,
     phone_number: "111111111111"
 };
@@ -83,16 +83,16 @@ describe("POST /socialmedias/", () => {
     });
 
     test("HTTP status code 400 (name empty)", async () => {
-        const photo = {...socialMediaData}
-        photo.name = ''
-        const res = await request(app).post("/socialmedias/").set('Authorization', `Bearer ${userToken}`).send(photo).expect(400);
+        const social_media = {...socialMediaData}
+        social_media.name = ''
+        const res = await request(app).post("/socialmedias/").set('Authorization', `Bearer ${userToken}`).send(social_media).expect(400);
         expect(res.body.message).toEqual("Validation notEmpty on name failed");
     });
     
     test("HTTP status code 400 (format social_media_url)", async () => {
-        const photo = {...socialMediaData}
-        photo.social_media_url = ''
-        const res = await request(app).post("/socialmedias/").set('Authorization', `Bearer ${userToken}`).send(photo).expect(400);
+        const social_media = {...socialMediaData}
+        social_media.social_media_url = ''
+        const res = await request(app).post("/socialmedias/").set('Authorization', `Bearer ${userToken}`).send(social_media).expect(400);
         expect(res.body.message).toEqual("Validation isUrl on social_media_url failed");
     });
 });

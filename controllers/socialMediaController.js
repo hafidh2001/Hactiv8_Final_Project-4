@@ -75,29 +75,39 @@ export const updateSocialMedia = async (req, res) => {
         return;
       }
     });
-    await SocialMedia.update(
-      {
-        name: name,
-        social_media_url: social_media_url,
-      },
-      { where: { id: socialMediaId, userId: user.id } }
-    ).then(async (data) => {
-      if (data[0] === 1) {
-        await SocialMedia.findOne({
-          where: { id: socialMediaId, userId: user.id },
-        }).then((data) => {
-          if (!data) {
-            res
-              .status(400)
-              .send({ status: "error", message: "social media doesn't exist" });
-            return;
-          }
-          res.status(200).send({
-            social_media: data,
+    if (
+      name == null &&
+      social_media_url == null 
+    ) {
+      res.status(200).send({
+        message: "you don't make changes to anything",
+      });
+      return;
+    } else{
+      await SocialMedia.update(
+        {
+          name: name,
+          social_media_url: social_media_url,
+        },
+        { where: { id: socialMediaId, userId: user.id } }
+      ).then(async (data) => {
+        if (data[0] === 1) {
+          await SocialMedia.findOne({
+            where: { id: socialMediaId, userId: user.id },
+          }).then((data) => {
+            if (!data) {
+              res
+                .status(400)
+                .send({ status: "error", message: "social media doesn't exist" });
+              return;
+            }
+            res.status(200).send({
+              social_media: data,
+            });
           });
-        });
-      }
-    });
+        }
+      });
+    }
   } catch (e) {
     res.status(400).send({
       status: "error",

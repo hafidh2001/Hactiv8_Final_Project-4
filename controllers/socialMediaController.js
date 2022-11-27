@@ -6,7 +6,7 @@ export const createSocialMedia = async (req, res) => {
 
   try {
     if (name == null || social_media_url == null) {
-      res.status(401).send({
+      res.status(400).send({
         status: "error",
         message: "name & social_media_url is required",
       });

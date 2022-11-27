@@ -6,7 +6,7 @@ export const createComment = async (req, res) => {
   try {
     if (photoId == null || comment == null) {
       res
-        .status(401)
+        .status(400)
         .send({ status: "error", message: "photoId & comment is required" });
       return;
     }
@@ -81,7 +81,7 @@ export const updateComment = async (req, res) => {
     }).then((data) => {
       if (!data) {
         res
-          .status(401)
+          .status(400)
           .send({ status: "error", message: "comment doesn't exist" });
         return;
       }
@@ -98,7 +98,7 @@ export const updateComment = async (req, res) => {
         }).then((data) => {
           if (!data) {
             res
-              .status(401)
+              .status(400)
               .send({ status: "error", message: "social media doesn't exist" });
             return;
           }
@@ -127,7 +127,7 @@ export const deleteComment = async (req, res) => {
     }).then((data) => {
       if (!data) {
         res
-          .status(401)
+          .status(400)
           .send({ status: "error", message: "comment doesn't exist" });
         return;
       }

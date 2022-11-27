@@ -13,20 +13,21 @@ export const createComment = async (req, res) => {
 
     await Photos.findOne({
       where: { id: Number(photoId) },
-    }).then((data) => {
+    }).then(async (data) => {
       if (!data) {
         res
           .status(400)
           .send({ status: "error", message: "photo doesn't exist" });
         return;
+      } else {
+        await Comments.create({
+          photoId: Number(photoId),
+          comment: comment,
+          userId: user.id,
+        }).then((data) => {
+          res.status(201).send({ comment: data });
+        });
       }
-    });
-    await Comments.create({
-      photoId: Number(photoId),
-      comment: comment,
-      userId: user.id,
-    }).then((data) => {
-      res.status(201).send({ comment: data });
     });
   } catch (e) {
     res.status(400).send({

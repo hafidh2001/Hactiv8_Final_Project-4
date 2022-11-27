@@ -87,30 +87,41 @@ export const updatePhoto = async (req, res) => {
         return;
       }
     });
-    await Photos.update(
-      {
-        title: title,
-        caption: caption,
-        poster_image_url: poster_image_url,
-      },
-      { where: { id: photoId, userId: user.id } }
-    ).then(async (data) => {
-      if (data[0] === 1) {
-        await Photos.findOne({
-          where: { id: photoId, userId: user.id },
-        }).then((data) => {
-          if (!data) {
-            res
-              .status(400)
-              .send({ status: "error", message: "photo doesn't exist" });
-            return;
-          }
-          res.status(200).send({
-            photo: data,
+    if (
+      title == null &&
+      caption == null &&
+      poster_image_url == null
+    ) {
+      res.status(200).send({
+        message: "you don't make changes to anything",
+      });
+      return;
+    } else { 
+      await Photos.update(
+        {
+          title: title,
+          caption: caption,
+          poster_image_url: poster_image_url,
+        },
+        { where: { id: photoId, userId: user.id } }
+      ).then(async (data) => {
+        if (data[0] === 1) {
+          await Photos.findOne({
+            where: { id: photoId, userId: user.id },
+          }).then((data) => {
+            if (!data) {
+              res
+                .status(400)
+                .send({ status: "error", message: "photo doesn't exist" });
+              return;
+            }
+            res.status(200).send({
+              photo: data,
+            });
           });
-        });
-      }
-    });
+        }
+      });
+    }
   } catch (e) {
     res.status(400).send({
       status: "error",

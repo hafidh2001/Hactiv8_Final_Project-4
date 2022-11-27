@@ -45,7 +45,7 @@ afterAll(async () => {
   await db.close();
 });
 
-describe("POST /photos/", () => {
+describe("GET /photos/", () => {
     // SUCCESS
     test("HTTP status code 200 (show photo success)", async () => {
         const res = await request(app).get("/photos/").set('Authorization', `Bearer ${userToken}`);

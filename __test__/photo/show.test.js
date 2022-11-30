@@ -54,6 +54,25 @@ describe("GET /photos/", () => {
             expect.stringContaining("json")
           );
         expect(typeof res.body).toEqual("object");
+        expect(res.body).toEqual({
+          photos: [
+            {
+              id: 1,
+              title: "Buku 1",
+              caption: "Buku 1 - cerita pertama seorang anak",
+              poster_image_url: "https://anak-pertama.jpg",
+              userId: 1,
+              createdAt: expect.any(String),
+              updatedAt: expect.any(String),
+              comments: [],
+              user: {
+                  id: 1,
+                  username: "programmer",
+                  profile_image_url: "https://photo.jpg"
+              }
+            }
+          ]
+        })
       });
 
     // ERROR

@@ -29,14 +29,22 @@ $ npm install (to install dependencies on the project stored in package.json)
 ```
 
 ## TESTING USING JEST
-#### POST /user/register
+#### POST /users/register
 ![](ss-result-test/[user]%20-%20register.png)
-#### POST /user/login
+#### POST /users/login
 ![](ss-result-test/[user]%20-%20login.png)
-#### PUT /user/update
+#### PUT /users/update
 ![](ss-result-test/[user]%20-%20update.png)
-#### DELETE /user/delete
+#### DELETE /users/delete
 ![](ss-result-test/[user]%20-%20delete.png)
+#### POST /photos/
+![](ss-result-test/[photo]%20-%20create.png)
+#### GET /photos/
+![](ss-result-test/[photo]%20-%20show.png)
+#### PUT /photos/:photoId
+![](ss-result-test/[photo]%20-%20update.png)
+#### DELETE /photos/:photoId
+![](ss-result-test/[photo]%20-%20delete.png)
 
 ## DOCUMENTATION
 

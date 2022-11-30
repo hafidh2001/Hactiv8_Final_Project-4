@@ -60,12 +60,17 @@ describe("PUT /photos/:photoId", () => {
         expect.stringContaining("json")
       );
       expect(typeof res.body).toEqual("object");
-        expect(updatePhotoData).toHaveProperty("title");
-        expect(updatePhotoData).toHaveProperty("poster_image_url");
-        expect(updatePhotoData).toHaveProperty("caption");
-        expect(typeof updatePhotoData.title).toEqual("string");
-        expect(typeof updatePhotoData.poster_image_url).toEqual("string");
-        expect(typeof updatePhotoData.caption).toEqual("string");
+      expect(res.body).toEqual({
+        photo: {
+            id: 1,
+            title: "Buku Coding",
+            caption: "Buku Coding - JavaScript",
+            poster_image_url: "https://buku-javascript.jpg",
+            userId: 1,
+            createdAt: expect.any(String),
+            updatedAt: expect.any(String)
+        }
+    })
     });
   
     // ERROR

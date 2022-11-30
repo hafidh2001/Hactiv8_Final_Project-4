@@ -53,6 +53,14 @@ $ npm install (to install dependencies on the project stored in package.json)
 ![](ss-result-test/[comment]%20-%20update.png)
 #### DELETE /comments/:commentId
 ![](ss-result-test/[comment]%20-%20delete.png)
+#### POST /socialmedias/
+![](ss-result-test/[socialmedia]%20-%20create.png)
+#### GET /socialmedias/
+![](ss-result-test/[socialmedia]%20-%20show.png)
+#### PUT /socialmedias/:socialMediaId
+![](ss-result-test/[socialmedia]%20-%20update.png)
+#### DELETE /socialmedias/:socialMediaId
+![](ss-result-test/[socialmedia]%20-%20delete.png)
 
 ## DOCUMENTATION
 

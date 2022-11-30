@@ -73,10 +73,16 @@ describe("PUT /socialmedias/:socialMediaId", () => {
         expect.stringContaining("json")
       );
       expect(typeof res.body).toEqual("object");
-        expect(updateSocialMediaData).toHaveProperty("name");
-        expect(updateSocialMediaData).toHaveProperty("social_media_url");
-        expect(typeof updateSocialMediaData.name).toEqual("string");
-        expect(typeof updateSocialMediaData.social_media_url).toEqual("string");
+      expect(res.body).toEqual({
+        social_media: {
+            id: 1,
+            name: "programmer linkedin",
+            social_media_url: "https://hactiv.org/programmer-linkedin",
+            userId: 1,
+            createdAt: expect.any(String),
+            updatedAt: expect.any(String)
+        }
+    })
     });
   
     // ERROR

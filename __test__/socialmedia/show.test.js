@@ -53,6 +53,23 @@ describe("GET /socialmedias/", () => {
             expect.stringContaining("json")
           );
         expect(typeof res.body).toEqual("object");
+        expect(res.body).toEqual({
+          social_medias: [
+              {
+                  id: 1,
+                  name: "programmer instagram",
+                  social_media_url: "https://hactiv.org/programmer-instagram",
+                  userId: 1,
+                  createdAt: expect.any(String),
+                  updatedAt: expect.any(String),
+                  user: {
+                      id: 1,
+                      username: "programmer",
+                      profile_image_url: "https://photo.jpg"
+                  }
+              }
+          ]
+      })
       });
 
     // ERROR

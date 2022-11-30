@@ -1,5 +1,3 @@
-## TESTING USING JEST
-
 ## HOW TO CHECK & SET REMOTE GITHUB ?
 
 ```bash
@@ -29,6 +27,16 @@ $ npm install (to install dependencies on the project stored in package.json)
 # step 1 : rename .env.example to .env
 # step 2 : fill in the value of each secret variable in .env
 ```
+
+## TESTING USING JEST
+#### POST /user/register
+![](ss-result-test/[user]%20-%20register.png)
+#### POST /user/login
+![](ss-result-test/[user]%20-%20login.png)
+#### PUT /user/update
+![](ss-result-test/[user]%20-%20update.png)
+#### DELETE /user/delete
+![](ss-result-test/[user]%20-%20delete.png)
 
 ## DOCUMENTATION
 

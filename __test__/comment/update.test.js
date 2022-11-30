@@ -67,10 +67,16 @@ describe("PUT /comments/:commentId", () => {
         expect.stringContaining("json")
       );
       expect(typeof res.body).toEqual("object");
-        expect(updatedCommentData).toHaveProperty("photoId");
-        expect(updatedCommentData).toHaveProperty("comment");
-        expect(typeof updatedCommentData.photoId).toEqual("number");
-        expect(typeof updatedCommentData.comment).toEqual("string");
+      expect(res.body).toEqual({
+        comment: {
+            id: 1,
+            userId: 1,
+            photoId: 1,
+            comment: "greats, unbelievable",
+            createdAt: expect.any(String),
+            updatedAt: expect.any(String)
+        }
+    })
     });
   
     // ERROR

@@ -45,6 +45,14 @@ $ npm install (to install dependencies on the project stored in package.json)
 ![](ss-result-test/[photo]%20-%20update.png)
 #### DELETE /photos/:photoId
 ![](ss-result-test/[photo]%20-%20delete.png)
+#### POST /comments/
+![](ss-result-test/[comment]%20-%20create.png)
+#### GET /comments/
+![](ss-result-test/[comment]%20-%20show.png)
+#### PUT /comments/:commentId
+![](ss-result-test/[comment]%20-%20update.png)
+#### DELETE /comments/:commentId
+![](ss-result-test/[comment]%20-%20delete.png)
 
 ## DOCUMENTATION
 

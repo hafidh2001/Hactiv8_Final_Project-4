@@ -64,7 +64,7 @@ afterAll(async () => {
 
 describe("POST /comments/", () => {
     // SUCCESS
-    test("HTTP status code 201 (create comment success)", async () => {
+    test("HTTP status code 201 (create comment success 1)", async () => {
         const res = await request(app).post("/comments/").set('Authorization', `Bearer ${userToken}`).send(commentData);
         expect(res.status).toEqual(201);
         expect(res.headers["content-type"]).toEqual(
@@ -83,7 +83,7 @@ describe("POST /comments/", () => {
         })
     });
 
-    test("HTTP status code 201 (create comment success)", async () => {
+    test("HTTP status code 201 (create comment success 2)", async () => {
         const res = await request(app).post("/comments/").set('Authorization', `Bearer ${userToken}`).send(commentData_2);
         expect(res.status).toEqual(201);
         expect(res.headers["content-type"]).toEqual(
@@ -102,7 +102,7 @@ describe("POST /comments/", () => {
         })
     });
 
-    test("HTTP status code 201 (create comment success)", async () => {
+    test("HTTP status code 201 (create comment success 3)", async () => {
         const res = await request(app).post("/comments/").set('Authorization', `Bearer ${userToken}`).send(commentData_3).expect(201);
         expect(res.headers["content-type"]).toEqual(
           expect.stringContaining("json")

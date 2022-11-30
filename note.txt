@@ -1,47 +1,22 @@
 CONFIGURE BASE PROJECT
-***** init direktori
-    - npm init || npm init -y (to create package.json)
-      output : 1. package.json
-               2. package-lock.json
-               3. ./node_modules
-
-***** create direktori and file structure in root
-    file :
-    - touch index.js (main page)
-    - touch jsconfig.json (not used yet)
-    - touch .gitignore (to add files/folders that are not pushed on github)
-    - touch .env (to store confidential data)
-    - touch .env.example (a copy of the variable declarations in .env)
-    - touch config.js (to declare the variables in .env)
-    direktori :
-    - mkdir db (to save the database connection)
-    - mkdir migrations (to migrate query to the database)
-    - mkdir models (to save data that is directly related to the database)
-    - mkdir routes (to save the route for each request made)
-    - mkdir controllers (to save data that connects the model with the route in every request process from the user[GET, POST, PUT, PATCH, DELETE])
-    - mkdir middlewares (to save the boundary / mediator function between the operating system and the application to simplify the integration process.)
-    - mkdir helpers (to save the global function)
 
 ***** install dependencies & dev-dependencies to package.json
     dependencies :
-    - npm i dotenv 
-    - npm i pg 
-    - npm i sequelize
-    - npm i express
-    - npm i cors
-    - npm i bcrypt 
-    - npm i jsonwebtoken
+    - npm i dotenv pg sequelize express cors bcrypt jsonwebtoken
     dev-dependencies :
-    - npm i --save-dev nodemon
-    - npm i --save-dev jest
-    - npm i --save-dev nodemon
+    - npm i -D nodemon jest supertest
 
 ***** setup environtment in package.json
     - "author": "hafidh ahmad fauzan",
     - "type": "module", (to load ES module)
-    - "main": "index.js" (to set the main page)
+    - "main": "app.js" (to set the main page)
 
-***** setup script in package.json (how to run command : npm run scriptname)
-    - "migrate-create": "node migrations/migrateCreateTable.js", (to run the migration create tables in the database)
-    - "migrate-drop": "node migrations/migrateDropTable.js" (to run the migration drop tables in the database)
-    - "dev": "yes | npx kill-port 8000 && nodemon index.js", (mix command : kill the running port and then run nodemon on the main page <yes : optional>)
+***** setup script in package.json (how to run command : npm run scriptname)    
+    - "migrate-db-dev": "node migrations/migrateCreateTable.js", (to run the migration create tables in the database dev)
+    - "drop-db-dev": "node migrations/migrateDropTable.js", (to run the migration drop tables in the database dev)
+    - "dev": "yes | npx kill-port 8000 && nodemon server.js", (mix command : kill the running port and then run nodemon in dev <yes : optional>)
+    - "prod-migrate-create": "export NODE_TLS_REJECT_UNAUTHORIZED='0' && node migrations/migrateCreateTable.js", (to run the migration create tables in the database server production)
+    - "prod": "export NODE_TLS_REJECT_UNAUTHORIZED='0' && node server.js", (running port and server in production)
+    - "migrate-db-test": "SET NODE_ENV=test&& node migrations/migrateCreateTable.js", (to run the migration create tables in the database test)
+    - "drop-db-test": "SET NODE_ENV=test&& node migrations/migrateDropTable.js", (to run the migration drop tables in the database test)
+    - "test": "SET NODE_ENV=test&& SET NODE_OPTIONS=--experimental-vm-modules&& npx jest --detectOpenHandles --forceExit" (to run test using jest)

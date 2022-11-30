@@ -28,6 +28,16 @@ const socialMediaData = {
     social_media_url: "https://hactiv.org/programmer-instagram"
 }
 
+const socialMediaData_2 = {
+    name: "react dev instagram",
+    social_media_url: "https://hactiv.org/react_dev-instagram"
+}
+
+const socialMediaData_3 = {
+    name: "node dev instagram",
+    social_media_url: "https://hactiv.org/node_dev-instagram"
+}
+
 beforeAll(async () => {
   // delete all row & start id from 0
   await db.query(`DELETE FROM users;`);
@@ -45,18 +55,60 @@ afterAll(async () => {
 
 describe("POST /socialmedias/", () => {
     // SUCCESS
-    test("HTTP status code 201 (create social media success)", async () => {
+    test("HTTP status code 201 (create social media success 1)", async () => {
         const res = await request(app).post("/socialmedias/").set('Authorization', `Bearer ${userToken}`).send(socialMediaData);
         expect(res.status).toEqual(201);
         expect(res.headers["content-type"]).toEqual(
           expect.stringContaining("json")
         );
         expect(typeof res.body).toEqual("object");
-        expect(socialMediaData).toHaveProperty("name");
-        expect(socialMediaData).toHaveProperty("social_media_url");
-        expect(typeof socialMediaData.name).toEqual("string");
-        expect(typeof socialMediaData.social_media_url).toEqual("string");
-      });
+        expect(res.body).toEqual({
+          social_media: {
+              id: 1,
+              name: "programmer instagram",
+              social_media_url: "https://hactiv.org/programmer-instagram",
+              userId: 1,
+              updatedAt: expect.any(String),
+              createdAt: expect.any(String)
+          }
+      })
+    });
+
+    test("HTTP status code 201 (create social media success 2)", async () => {
+      const res = await request(app).post("/socialmedias/").set('Authorization', `Bearer ${userToken}`).send(socialMediaData_2).expect(201);
+      expect(res.headers["content-type"]).toEqual(
+        expect.stringContaining("json")
+      );
+      expect(typeof res.body).toEqual("object");
+      expect(res.body).toEqual({
+        social_media: {
+            id: 2,
+            name: "react dev instagram",
+            social_media_url: "https://hactiv.org/react_dev-instagram",
+            userId: 1,
+            updatedAt: expect.any(String),
+            createdAt: expect.any(String)
+        }
+      })
+    });
+
+    test("HTTP status code 201 (create social media success 3)", async () => {
+      const res = await request(app).post("/socialmedias/").set('Authorization', `Bearer ${userToken}`).send(socialMediaData_3).expect(201);
+      expect(res.headers["content-type"]).toEqual(
+        expect.stringContaining("json")
+      );
+      expect(typeof res.body).toEqual("object");
+      expect(res.body).toEqual({
+        social_media: {
+            id: 3,
+            name: "node dev instagram",
+            social_media_url: "https://hactiv.org/node_dev-instagram",
+            userId: 1,
+            updatedAt: expect.any(String),
+            createdAt: expect.any(String)
+        }
+      })
+    });
 
     // ERROR
     test("HTTP status code 401 (credentials not found)", async () => {

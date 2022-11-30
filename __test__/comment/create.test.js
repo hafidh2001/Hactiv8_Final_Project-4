@@ -34,6 +34,16 @@ const commentData = {
     comment: "wahh bagus sekali"
 }
 
+const commentData_2 = {
+    photoId: 1,
+    comment: "awesomeee, the pic too good"
+}
+
+const commentData_3 = {
+    photoId: 1,
+    comment: "how can u take a pic like this ?? too good to be true"
+}
+
 beforeAll(async () => {
   // delete all row & start id from 0
   await db.query(`DELETE FROM users;`);
@@ -61,12 +71,55 @@ describe("POST /comments/", () => {
           expect.stringContaining("json")
         );
         expect(typeof res.body).toEqual("object");
-        expect(commentData).toHaveProperty("photoId");
-        expect(commentData).toHaveProperty("comment");
-        expect(typeof commentData.photoId).toEqual("number");
-        expect(typeof commentData.comment).toEqual("string");
+        expect(res.body).toEqual({
+            comment: {
+                id: 1,
+                photoId: 1,
+                comment: "wahh bagus sekali",
+                userId: 1,
+                updatedAt: expect.any(String),
+                createdAt: expect.any(String)
+            }
+        })
     });
 
+    test("HTTP status code 201 (create comment success)", async () => {
+        const res = await request(app).post("/comments/").set('Authorization', `Bearer ${userToken}`).send(commentData_2);
+        expect(res.status).toEqual(201);
+        expect(res.headers["content-type"]).toEqual(
+          expect.stringContaining("json")
+        );
+        expect(typeof res.body).toEqual("object");
+        expect(res.body).toEqual({
+            comment: {
+                id: 2,
+                photoId: 1,
+                comment: "awesomeee, the pic too good",
+                userId: 1,
+                updatedAt: expect.any(String),
+                createdAt: expect.any(String)
+            }
+        })
+    });
+
+    test("HTTP status code 201 (create comment success)", async () => {
+        const res = await request(app).post("/comments/").set('Authorization', `Bearer ${userToken}`).send(commentData_3).expect(201);
+        expect(res.headers["content-type"]).toEqual(
+          expect.stringContaining("json")
+        );
+        expect(typeof res.body).toEqual("object");
+        expect(res.body).toEqual({
+            comment: {
+                id: 3,
+                photoId: 1,
+                comment: "how can u take a pic like this ?? too good to be true",
+                userId: 1,
+                updatedAt: expect.any(String),
+                createdAt: expect.any(String)
+            }
+        })
+    });
+    
     // ERROR
     test("HTTP status code 401 (credentials not found)", async () => {
         const res = await request(app).post("/comments/").send(commentData);

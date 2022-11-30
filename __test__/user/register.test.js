@@ -12,6 +12,26 @@ const userData = {
   phone_number: "111111111111",
 };
 
+const userData_2 = {
+  full_name: "react dev",
+  email: "react_dev@gmail.com",
+  username: "react_dev",
+  password: "12345",
+  profile_image_url: "https://photo-react.jpg",
+  age: 23,
+  phone_number: "222222222222",
+};
+
+const userData_3 = {
+  full_name: "node dev",
+  email: "node_dev@gmail.com",
+  username: "node_dev",
+  password: "12345",
+  profile_image_url: "https://photo-node.jpg",
+  age: 25,
+  phone_number: "333333333333",
+};
+
 beforeAll(async () => {
   // delete all row & start id from 0
   await db.query(`DELETE FROM users;`);
@@ -24,27 +44,59 @@ afterAll(async () => {
 
 describe("POST /users/register", () => {
   // SUCCESS
-  test("HTTP status code 201 (register success)", async () => {
+  test("HTTP status code 201 (register success 1)", async () => {
     const res = await request(app).post("/users/register").send(userData);
     expect(res.status).toEqual(201);
     expect(res.headers["content-type"]).toEqual(
       expect.stringContaining("json")
     );
     expect(typeof res.body).toEqual("object");
-    expect(userData).toHaveProperty("full_name");
-    expect(userData).toHaveProperty("email");
-    expect(userData).toHaveProperty("username");
-    expect(userData).toHaveProperty("password");
-    expect(userData).toHaveProperty("profile_image_url");
-    expect(userData).toHaveProperty("age");
-    expect(userData).toHaveProperty("phone_number");
-    expect(typeof userData.full_name).toEqual("string");
-    expect(typeof userData.email).toEqual("string");
-    expect(typeof userData.username).toEqual("string");
-    expect(typeof userData.password).toEqual("string");
-    expect(typeof userData.profile_image_url).toEqual("string");
-    expect(typeof userData.age).toEqual("number");
-    expect(typeof userData.phone_number).toEqual("string");
+    expect(res.body).toEqual({
+      user: {
+        full_name: "programmer",
+        email: "programmer@gmail.com",
+        username: "programmer",
+        profile_image_url: "https://photo.jpg",
+        age: "21",
+        phone_number: "111111111111",
+      }
+    })
+  });
+
+  test("HTTP status code 201 (register success 2)", async () => {
+    const res = await request(app).post("/users/register").send(userData_2).expect(201);
+    expect(res.headers["content-type"]).toEqual(
+      expect.stringContaining("json")
+    );
+    expect(typeof res.body).toEqual("object");
+    expect(res.body).toEqual({
+      user: {
+        full_name: "react dev",
+        email: "react_dev@gmail.com",
+        username: "react_dev",
+        profile_image_url: "https://photo-react.jpg",
+        age: "23",
+        phone_number: "222222222222",
+      }
+    })
+  });
+
+  test("HTTP status code 201 (register success 3)", async () => {
+    const res = await request(app).post("/users/register").send(userData_3).expect(201);
+    expect(res.headers["content-type"]).toEqual(
+      expect.stringContaining("json")
+    );
+    expect(typeof res.body).toEqual("object");
+    expect(res.body).toEqual({
+      user: {
+        full_name: "node dev",
+        email: "node_dev@gmail.com",
+        username: "node_dev",
+        profile_image_url: "https://photo-node.jpg",
+        age: "25",
+        phone_number: "333333333333",
+      }
+    })
   });
 
   // ERROR

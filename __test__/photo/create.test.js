@@ -29,6 +29,18 @@ const photoData = {
     poster_image_url: "https://anak-pertama.jpg"
 }
 
+const photoData_2 = {
+    title: "Buku 2",
+    caption: "Buku 2 - cerita kedua seorang anak",
+    poster_image_url: "https://anak-kedua.jpg"
+}
+
+const photoData_3 = {
+    title: "Buku 3",
+    caption: "Buku 3 - cerita ketiga seorang anak",
+    poster_image_url: "https://anak-ketiga.jpg"
+}
+
 beforeAll(async () => {
   // delete all row & start id from 0
   await db.query(`DELETE FROM users;`);
@@ -46,20 +58,51 @@ afterAll(async () => {
 
 describe("POST /photos/", () => {
     // SUCCESS
-    test("HTTP status code 201 (create photo success)", async () => {
+    test("HTTP status code 201 (create photo success 1)", async () => {
         const res = await request(app).post("/photos/").set('Authorization', `Bearer ${userToken}`).send(photoData);
         expect(res.status).toEqual(201);
         expect(res.headers["content-type"]).toEqual(
           expect.stringContaining("json")
         );
         expect(typeof res.body).toEqual("object");
-        expect(photoData).toHaveProperty("title");
-        expect(photoData).toHaveProperty("poster_image_url");
-        expect(photoData).toHaveProperty("caption");
-        expect(typeof photoData.title).toEqual("string");
-        expect(typeof photoData.poster_image_url).toEqual("string");
-        expect(typeof photoData.caption).toEqual("string");
-      });
+        expect(res.body).toEqual({
+            id: 1,
+            title: "Buku 1",
+            caption: "Buku 1 - cerita pertama seorang anak",
+            poster_image_url: "https://anak-pertama.jpg",
+            userId: 1
+        })
+    });
+
+    test("HTTP status code 201 (create photo success 2)", async () => {
+        const res = await request(app).post("/photos/").set('Authorization', `Bearer ${userToken}`).send(photoData_2).expect(201);
+        expect(res.headers["content-type"]).toEqual(
+          expect.stringContaining("json")
+        );
+        expect(typeof res.body).toEqual("object");
+        expect(res.body).toEqual({
+            id: 2,
+            title: "Buku 2",
+            caption: "Buku 2 - cerita kedua seorang anak",
+            poster_image_url: "https://anak-kedua.jpg",
+            userId: 1
+        })
+    });
+
+    test("HTTP status code 201 (create photo success 3)", async () => {
+        const res = await request(app).post("/photos/").set('Authorization', `Bearer ${userToken}`).send(photoData_3).expect(201);
+        expect(res.headers["content-type"]).toEqual(
+          expect.stringContaining("json")
+        );
+        expect(typeof res.body).toEqual("object");
+        expect(res.body).toEqual({
+            id: 3,
+            title: "Buku 3",
+            caption: "Buku 3 - cerita ketiga seorang anak",
+            poster_image_url: "https://anak-ketiga.jpg",
+            userId: 1
+        })
+    });
 
     // ERROR
     test("HTTP status code 401 (credentials not found)", async () => {

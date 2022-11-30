@@ -69,18 +69,16 @@ describe("PUT /users/:userId", () => {
       expect.stringContaining("json")
     );
     expect(typeof res.body).toEqual("object");
-    expect(updateUserData).toHaveProperty("full_name");
-    expect(updateUserData).toHaveProperty("email");
-    expect(updateUserData).toHaveProperty("username");
-    expect(updateUserData).toHaveProperty("profile_image_url");
-    expect(updateUserData).toHaveProperty("age");
-    expect(updateUserData).toHaveProperty("phone_number");
-    expect(typeof updateUserData.full_name).toEqual("string");
-    expect(typeof updateUserData.email).toEqual("string");
-    expect(typeof updateUserData.username).toEqual("string");
-    expect(typeof updateUserData.profile_image_url).toEqual("string");
-    expect(typeof updateUserData.age).toEqual("number");
-    expect(typeof updateUserData.phone_number).toEqual("string");
+    expect(res.body).toEqual({
+      user: {
+        full_name: 'design',
+        email: 'design@gmail.com',
+        username: 'design',
+        profile_image_url: "https://design-photo.jpg",
+        age: 27,
+        phone_number: "101010101010"
+      }
+    });
   });
 
   // ERROR

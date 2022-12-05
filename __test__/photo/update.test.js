@@ -63,9 +63,9 @@ describe("PUT /photos/:photoId", () => {
       expect(res.body).toEqual({
         photo: {
             id: 1,
-            title: "Buku Coding",
-            caption: "Buku Coding - JavaScript",
-            poster_image_url: "https://buku-javascript.jpg",
+            title: updatePhotoData.title,
+            caption: updatePhotoData.caption,
+            poster_image_url: updatePhotoData.poster_image_url,
             userId: 1,
             createdAt: expect.any(String),
             updatedAt: expect.any(String)

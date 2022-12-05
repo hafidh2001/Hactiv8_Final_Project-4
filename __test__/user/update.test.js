@@ -71,12 +71,12 @@ describe("PUT /users/:userId", () => {
     expect(typeof res.body).toEqual("object");
     expect(res.body).toEqual({
       user: {
-        full_name: 'design',
-        email: 'design@gmail.com',
-        username: 'design',
-        profile_image_url: "https://design-photo.jpg",
-        age: 27,
-        phone_number: "101010101010"
+        full_name: updateUserData.full_name,
+        email: updateUserData.email,
+        username: updateUserData.username,
+        profile_image_url: updateUserData.profile_image_url,
+        age: updateUserData.age,
+        phone_number: updateUserData.phone_number
       }
     });
   });

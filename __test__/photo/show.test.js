@@ -58,17 +58,17 @@ describe("GET /photos/", () => {
           photos: [
             {
               id: 1,
-              title: "Buku 1",
-              caption: "Buku 1 - cerita pertama seorang anak",
-              poster_image_url: "https://anak-pertama.jpg",
+              title: photoData.title,
+              caption: photoData.caption,
+              poster_image_url: photoData.poster_image_url,
               userId: 1,
               createdAt: expect.any(String),
               updatedAt: expect.any(String),
               comments: [],
               user: {
                   id: 1,
-                  username: "programmer",
-                  profile_image_url: "https://photo.jpg"
+                  username: user.username,
+                  profile_image_url: user.profile_image_url
               }
             }
           ]

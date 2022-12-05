@@ -65,8 +65,8 @@ describe("POST /socialmedias/", () => {
         expect(res.body).toEqual({
           social_media: {
               id: 1,
-              name: "programmer instagram",
-              social_media_url: "https://hactiv.org/programmer-instagram",
+              name: socialMediaData.name,
+              social_media_url: socialMediaData.social_media_url,
               userId: 1,
               updatedAt: expect.any(String),
               createdAt: expect.any(String)
@@ -83,8 +83,8 @@ describe("POST /socialmedias/", () => {
       expect(res.body).toEqual({
         social_media: {
             id: 2,
-            name: "react dev instagram",
-            social_media_url: "https://hactiv.org/react_dev-instagram",
+            name: socialMediaData_2.name,
+            social_media_url: socialMediaData_2.social_media_url,
             userId: 1,
             updatedAt: expect.any(String),
             createdAt: expect.any(String)
@@ -101,8 +101,8 @@ describe("POST /socialmedias/", () => {
       expect(res.body).toEqual({
         social_media: {
             id: 3,
-            name: "node dev instagram",
-            social_media_url: "https://hactiv.org/node_dev-instagram",
+            name: socialMediaData_3.name,
+            social_media_url: socialMediaData_3.social_media_url,
             userId: 1,
             updatedAt: expect.any(String),
             createdAt: expect.any(String)

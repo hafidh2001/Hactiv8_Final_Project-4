@@ -53,12 +53,12 @@ describe("POST /users/register", () => {
     expect(typeof res.body).toEqual("object");
     expect(res.body).toEqual({
       user: {
-        full_name: "programmer",
-        email: "programmer@gmail.com",
-        username: "programmer",
-        profile_image_url: "https://photo.jpg",
-        age: "21",
-        phone_number: "111111111111",
+        full_name: userData.full_name,
+        email: userData.email,
+        username: userData.username,
+        profile_image_url: userData.profile_image_url,
+        age: userData.age.toString(),
+        phone_number: userData.phone_number,
       }
     })
   });
@@ -71,12 +71,12 @@ describe("POST /users/register", () => {
     expect(typeof res.body).toEqual("object");
     expect(res.body).toEqual({
       user: {
-        full_name: "react dev",
-        email: "react_dev@gmail.com",
-        username: "react_dev",
-        profile_image_url: "https://photo-react.jpg",
-        age: "23",
-        phone_number: "222222222222",
+        full_name: userData_2.full_name,
+        email: userData_2.email,
+        username: userData_2.username,
+        profile_image_url: userData_2.profile_image_url,
+        age: userData_2.age.toString(),
+        phone_number: userData_2.phone_number,
       }
     })
   });
@@ -89,12 +89,12 @@ describe("POST /users/register", () => {
     expect(typeof res.body).toEqual("object");
     expect(res.body).toEqual({
       user: {
-        full_name: "node dev",
-        email: "node_dev@gmail.com",
-        username: "node_dev",
-        profile_image_url: "https://photo-node.jpg",
-        age: "25",
-        phone_number: "333333333333",
+        full_name: userData_3.full_name,
+        email: userData_3.email,
+        username: userData_3.username,
+        profile_image_url: userData_3.profile_image_url,
+        age: userData_3.age.toString(),
+        phone_number: userData_3.phone_number,
       }
     })
   });

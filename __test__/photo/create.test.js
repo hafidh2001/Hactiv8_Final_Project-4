@@ -67,9 +67,9 @@ describe("POST /photos/", () => {
         expect(typeof res.body).toEqual("object");
         expect(res.body).toEqual({
             id: 1,
-            title: "Buku 1",
-            caption: "Buku 1 - cerita pertama seorang anak",
-            poster_image_url: "https://anak-pertama.jpg",
+            title: photoData.title,
+            caption: photoData.caption,
+            poster_image_url: photoData.poster_image_url,
             userId: 1
         })
     });
@@ -82,9 +82,9 @@ describe("POST /photos/", () => {
         expect(typeof res.body).toEqual("object");
         expect(res.body).toEqual({
             id: 2,
-            title: "Buku 2",
-            caption: "Buku 2 - cerita kedua seorang anak",
-            poster_image_url: "https://anak-kedua.jpg",
+            title: photoData_2.title,
+            caption: photoData_2.caption,
+            poster_image_url: photoData_2.poster_image_url,
             userId: 1
         })
     });
@@ -97,9 +97,9 @@ describe("POST /photos/", () => {
         expect(typeof res.body).toEqual("object");
         expect(res.body).toEqual({
             id: 3,
-            title: "Buku 3",
-            caption: "Buku 3 - cerita ketiga seorang anak",
-            poster_image_url: "https://anak-ketiga.jpg",
+            title: photoData_3.title,
+            caption: photoData_3.caption,
+            poster_image_url: photoData_3.poster_image_url,
             userId: 1
         })
     });

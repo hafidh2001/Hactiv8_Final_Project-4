@@ -72,7 +72,7 @@ describe("PUT /comments/:commentId", () => {
             id: 1,
             userId: 1,
             photoId: 1,
-            comment: "greats, unbelievable",
+            comment: updatedCommentData.comment,
             createdAt: expect.any(String),
             updatedAt: expect.any(String)
         }

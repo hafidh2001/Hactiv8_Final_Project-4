@@ -75,7 +75,7 @@ describe("POST /comments/", () => {
             comment: {
                 id: 1,
                 photoId: 1,
-                comment: "wahh bagus sekali",
+                comment: commentData.comment,
                 userId: 1,
                 updatedAt: expect.any(String),
                 createdAt: expect.any(String)
@@ -94,7 +94,7 @@ describe("POST /comments/", () => {
             comment: {
                 id: 2,
                 photoId: 1,
-                comment: "awesomeee, the pic too good",
+                comment: commentData_2.comment,
                 userId: 1,
                 updatedAt: expect.any(String),
                 createdAt: expect.any(String)
@@ -112,7 +112,7 @@ describe("POST /comments/", () => {
             comment: {
                 id: 3,
                 photoId: 1,
-                comment: "how can u take a pic like this ?? too good to be true",
+                comment: commentData_3.comment,
                 userId: 1,
                 updatedAt: expect.any(String),
                 createdAt: expect.any(String)

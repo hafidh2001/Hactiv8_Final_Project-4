@@ -48,12 +48,12 @@ describe("POST /users/login", () => {
         const claim = jwt.verify(res.body.token, jwt_secret);
         expect(claim).toEqual({
             id: 1,
-            full_name: "programmer",
-            email: "programmer@gmail.com",
-            username: "programmer",
-            profile_image_url: "https://photo.jpg",
-            age: "21",
-            phone_number: "111111111111",
+            full_name: user.full_name,
+            email: user.email,
+            username: user.username,
+            profile_image_url: user.profile_image_url,
+            age: user.age.toString(),
+            phone_number: user.phone_number,
             createdAt: expect.any(String),
             updatedAt: expect.any(String),
             iat: expect.any(Number),

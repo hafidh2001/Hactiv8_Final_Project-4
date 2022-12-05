@@ -57,15 +57,15 @@ describe("GET /socialmedias/", () => {
           social_medias: [
               {
                   id: 1,
-                  name: "programmer instagram",
-                  social_media_url: "https://hactiv.org/programmer-instagram",
+                  name: socialMediaData.name,
+                  social_media_url: socialMediaData.social_media_url,
                   userId: 1,
                   createdAt: expect.any(String),
                   updatedAt: expect.any(String),
                   user: {
                       id: 1,
-                      username: "programmer",
-                      profile_image_url: "https://photo.jpg"
+                      username: user.username,
+                      profile_image_url: user.profile_image_url
                   }
               }
           ]
